@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#020202"
+    app:barrierMargin="2dp"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imagenMicrofono"
+        android:layout_width="297dp"
+        android:layout_height="346dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.08"
+        app:srcCompat="@drawable/microfono" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="297dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="188dp"
+        android:popupBackground="@android:color/transparent"
+        android:textAlignment="viewStart"
+        android:theme="@style/SpinnerTextStyle"
+        app:circularflow_angles="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stopButton" />
+
+    <ImageButton
+        android:id="@+id/playButton"
+        style="@style/Widget.AppCompat.ImageButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="156dp"
+        android:background="#BBDEFB"
+        android:contentDescription="playButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.966"
+        app:layout_constraintStart_toEndOf="@+id/stopButton"
+        app:layout_constraintTop_toBottomOf="@+id/imagenMicrofono"
+        app:layout_constraintVertical_bias="0.423"
+        app:srcCompat="@android:drawable/ic_media_play"
+        app:tint="#4CAF50" />
+
+    <ImageButton
+        android:id="@+id/recordButton"
+        style="@style/Widget.AppCompat.ImageButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginBottom="156dp"
+        android:background="#BBDEFB"
+        android:contentDescription="@string/recordbutton"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/stopButton"
+        app:layout_constraintHorizontal_bias="0.034"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagenMicrofono"
+        app:layout_constraintVertical_bias="0.423"
+        app:srcCompat="@android:drawable/ic_notification_overlay"
+        app:tint="#E53935" />
+
+    <ImageButton
+        android:id="@+id/stopButton"
+        style="@style/Widget.AppCompat.ImageButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="156dp"
+        android:background="#BBDEFB"
+        android:contentDescription="stopButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagenMicrofono"
+        app:layout_constraintVertical_bias="0.423"
+        app:srcCompat="@android:drawable/ic_media_pause"
+        app:tint="#2196F3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
