@@ -1,6 +1,11 @@
 <resources>
-    <string name="app_name">Feedback3_ejer2</string>
+    <string name="app_name">Recorder</string>
     <string name="recordButton">recordButton</string>
     <string name="stopButton">stopButton</string>
     <string name="recordbutton">recordButton</string>
+    <string name="playbutton">playButton</string>
+    <string name="stopbutton">stopButton</string>
+    <string name="mic_background">mic_background</string>
+    <string name="recordings_saved">Recordings saved</string>
+    <string name="remove">Remove</string>">
 </resources>

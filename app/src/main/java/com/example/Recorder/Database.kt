@@ -40,4 +40,12 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         val db = this.readableDatabase
         return db.rawQuery("SELECT * FROM $TABLE_NAME", null)
     }
+
+    fun deleteRecording(selectedTimestamp: String) {
+        val db = this.writableDatabase
+        db.delete(TABLE_NAME, "$COLUMN_TIMESTAMP = ?", arrayOf(selectedTimestamp))
+        db.close()
+    }
+
+
 }

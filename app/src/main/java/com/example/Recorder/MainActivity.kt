@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recordButton: ImageButton
     private lateinit var stopButton: ImageButton
     private lateinit var playButton: ImageButton
+    private lateinit var removeButton: ImageButton
 
     // MEDIA RECORDER
     private var mediaRecorder: MediaRecorder? = null
@@ -56,11 +57,12 @@ class MainActivity : AppCompatActivity() {
         recordButton = binding.recordButton
         stopButton = binding.stopButton
         playButton = binding.playButton
+        removeButton = binding.removeButton
         spinner = binding.spinner
 
         // Initialize Spinner Adapter
         spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, ArrayList())
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_item)
         spinner.adapter = spinnerAdapter
 
         // Main functions
@@ -77,6 +79,11 @@ class MainActivity : AppCompatActivity() {
         playButton.setOnClickListener {
             play()
             Log.d("Running", "Playing recording.")
+        }
+
+        removeButton.setOnClickListener {
+            removeRecording()
+            Log.d("Running", "Remove recording.")
         }
 
         loadRecordings()
@@ -106,7 +113,8 @@ class MainActivity : AppCompatActivity() {
                 start()
 
             }
-            val timestamp = SimpleDateFormat("HH:mm:ss dd-MM-yyyy", Locale.getDefault()).format(Date())
+            val timestamp =
+                SimpleDateFormat("HH:mm:ss dd-MM-yyyy", Locale.getDefault()).format(Date())
             dbHelper.insertRecording(outputFile!!, timestamp)
             loadRecordings()
         } catch (e: IOException) {
@@ -194,12 +202,49 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun removeRecording() {
+        val selectedTimestamp = spinner.selectedItem as String
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Remove Recording")
+        builder.setMessage("Are you sure you want to remove this recording?")
+        builder.setPositiveButton("Remove") { dialog, which ->
+
+            // Delete the recording from the database
+            dbHelper.deleteRecording(selectedTimestamp)
+
+            // Delete from the recording list and update the spinner adapter.
+            val recordingsList = ArrayList<String>()
+            recordingsList.add(getString(R.string.recordings_saved))
+
+            val cursor = dbHelper.getRecordings()
+            if (cursor.moveToFirst()) {
+                do {
+                    val timestamp = cursor.getString(cursor.getColumnIndexOrThrow("timestamp"))
+                    recordingsList.add(timestamp)
+                } while (cursor.moveToNext())
+            }
+            cursor.close()
+
+            spinnerAdapter.clear()
+            spinnerAdapter.addAll(recordingsList)
+            spinnerAdapter.notifyDataSetChanged()
+
+            Toast.makeText(this, "Recording deleted", Toast.LENGTH_SHORT).show()
+        }
+        builder.setNegativeButton("Cancel") { dialog, which ->
+            dialog.dismiss()
+        }
+        val dialog = builder.create()
+        dialog.show()
+    }
 
 // Add recordings to database
 
     private fun loadRecordings() {
         val cursor = dbHelper.getRecordings()
         val recordingsList = ArrayList<String>()
+        recordingsList.add(0, getString(R.string.recordings_saved))
         if (cursor.moveToFirst()) {
             do {
                 val timestamp = cursor.getString(cursor.getColumnIndexOrThrow("timestamp"))
@@ -214,8 +259,8 @@ class MainActivity : AppCompatActivity() {
 
 // Permissions to access device resources.
 
-    val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
-        isGranted: Boolean ->
+    val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             if (isGranted) {
                 record()
                 Log.d("Running", "Recording audio.")
@@ -244,17 +289,17 @@ class MainActivity : AppCompatActivity() {
                 this,
                 android.Manifest.permission.RECORD_AUDIO
             ) -> {
-                    val builder = AlertDialog.Builder(this)
-                    builder.setTitle("Permission needed")
-                    builder.setMessage("It is necessary to grant permission to access the microphone to record audio.")
-                    builder.setPositiveButton("OK") { dialog, _ ->
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Permission needed")
+                builder.setMessage("It is necessary to grant permission to access the microphone to record audio.")
+                builder.setPositiveButton("OK") { dialog, _ ->
 
-                        requestPermissionLauncher.launch(android.Manifest.permission.RECORD_AUDIO)
-                    }
-                    builder.setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
-                    val dialog = builder.create()
-                    dialog.show()
+                    requestPermissionLauncher.launch(android.Manifest.permission.RECORD_AUDIO)
                 }
+                builder.setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
+                val dialog = builder.create()
+                dialog.show()
             }
         }
     }
+}
