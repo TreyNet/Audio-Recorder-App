@@ -93,13 +93,14 @@ class MainActivity : AppCompatActivity() {
         try {
             Toast.makeText(this, "Recording.", Toast.LENGTH_SHORT).show()
             /*
-            Desactivamos todos los botones menos el de detener la grabación, puesto que
-            con una grabación en ejecución no resultan de utilidad.
+            Deactivate all the buttons except the stop button, because a recording is in progress.
             */
             recordButton.isEnabled = false
             stopButton.isEnabled = true
 
-            //Indicamos el directorio en el que se alojará la grabación al finalizar.
+            /*
+            The path where the recording will be saved.
+            */
             outputFile = getExternalFilesDir(Environment.DIRECTORY_MUSIC)?.absolutePath +
                     "/recording_${System.currentTimeMillis()}.3gp"
 
