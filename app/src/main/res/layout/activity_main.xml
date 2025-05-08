@@ -35,7 +35,7 @@
 
         <ImageButton
             android:id="@+id/recordButton"
-            style="@style/Widget.AppCompat.ImageButton"
+            android:text="🔴"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@drawable/rounded_image"
@@ -51,7 +51,7 @@
 
         <ImageButton
             android:id="@+id/stopButton"
-            style="@style/Widget.AppCompat.ImageButton"
+            android:text="⏸️"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@drawable/rounded_image"
@@ -66,7 +66,7 @@
 
         <ImageButton
             android:id="@+id/playButton"
-            style="@style/Widget.AppCompat.ImageButton"
+            android:text="▶️"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@drawable/rounded_image"
