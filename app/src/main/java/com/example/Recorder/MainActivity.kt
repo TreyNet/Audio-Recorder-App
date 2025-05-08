@@ -29,18 +29,18 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    // BUTTONS
+    // ======= Buttons ======= //
     private lateinit var recordButton: ImageButton
     private lateinit var stopButton: ImageButton
     private lateinit var playButton: ImageButton
     private lateinit var removeButton: ImageButton
 
-    // MEDIA RECORDER
+    // ======= Media Recorder ======= //
     private var mediaRecorder: MediaRecorder? = null
     private var outputFile: String? = null
     private var mediaPlayer: MediaPlayer? = null
 
-    // DATABASE HELPER
+    // ======= Database Helper ======= //
     private lateinit var dbHelper: DatabaseHelper
     private lateinit var spinner: Spinner
     private lateinit var spinnerAdapter: ArrayAdapter<String>
